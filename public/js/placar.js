@@ -3,7 +3,7 @@ $("#botao-sync").click(sincronizaPlacar);
 
 function inserePlacar() {
     var corpoTabela = $(".placar").find("tbody");
-    var usuario = "Pedro"
+    var usuario = $("#usuarios").val();
     var numPalavras = $("#contador-palavras").text();
 
     var linha = novaLinha(usuario, numPalavras);
@@ -87,9 +87,16 @@ function sincronizaPlacar() {
     }
     /*Eu não posso enviar diretamente um array para o meu servidor, 
     por isso criei o 'dados' acima para receber o placar. De costume enviamos uma string ou objeto javascript*/
-    $.post("http://localhost:3001/placar",dados, function () {
-        console.log("Salvou os dados");   
-    })
+    $.post("http://localhost:3001/placar", dados , function() {
+        console.log("Placar sincronizado com sucesso");
+        $(".tooltip").tooltipster("open"); 
+    }).fail(function(){
+        $(".tooltip").tooltipster("open").tooltipster("content", "Falha ao sincronizar"); 
+    }).always(function(){ 
+        setTimeout(function() {
+        $(".tooltip").tooltipster("close"); 
+    }, 1200);
+    });
 }
 
 function atualizaPlacar(){

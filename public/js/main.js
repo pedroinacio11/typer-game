@@ -7,7 +7,17 @@ $(function() {
     inicializaCronometro();
     inicializaMarcadores();
     $("#botao-reiniciar").click(reiniciaJogo);
-    atualizaPlacar()
+    atualizaPlacar();
+    $('#usuarios').selectize({
+        create: true,
+        sortField: 'text'
+    });
+
+    $(".tooltip").tooltipster({
+        trigger: "custom"
+    });
+    
+    
 });
 
 
@@ -87,3 +97,4 @@ function reiniciaJogo() {
     campo.removeClass("borda-vermelha");
     campo.removeClass("borda-verde");
 }
+
